@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -an -p
+ls -am -p
