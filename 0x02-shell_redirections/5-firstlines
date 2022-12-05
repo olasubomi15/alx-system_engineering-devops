@@ -1,2 +1,2 @@
 #!/bin/bash
-head -10 /ets/passwd | tail +10
+head /etc/passwd
