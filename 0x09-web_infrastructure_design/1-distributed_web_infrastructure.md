@@ -2,7 +2,7 @@
 
 ![Image of a distributed web infrastructure](1-distributed_web_infrastructure.PNG)
 
-[Visit Board](https://miro.com/app/board/uXjVOfI6jcU=/)
+[Visit Board](https://imagetolink.com/ib/Ov67QIe5be)
 
 ## Description
 
