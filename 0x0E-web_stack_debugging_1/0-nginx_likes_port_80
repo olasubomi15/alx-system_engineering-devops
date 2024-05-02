@@ -1,10 +1,22 @@
-#!/usr/bin/env bash                                                                                                                                       
-# fix nginx listening on port 80                                                                                                                          
-# Go to sites-enabled folder for Nginx                                                                                                                    
-cd /etc/nginx/sites-enabled/ || exit;                                                                                                                             
-# Delete the default file                                                                                                                               
-rm default;                                                                                                                                               
-# Create symbolic link to the deafult file in sites-available                                                                                             
-ln -s /etc/nginx/sites-available/default default;                                                                                                         
-# Restart Nginx                                                                                                                                           
-service nginx restart 
+#!/bin/bash
+
+# Check if nginx is installed
+if ! command -v nginx &> /dev/null
+then
+    echo "Nginx is not installed. Please install it first."
+    exit 1
+fi
+
+# Backup the original nginx configuration
+cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+
+# Add listen directive for port 80 in the default server block
+sed -i '/^ *listen [::]:80;/d' /etc/nginx/nginx.conf # Remove IPv6 listen directive if exists
+sed -i '/^ *listen [0-9]*;/d' /etc/nginx/nginx.conf  # Remove any other listen directives
+sed -i '/^ *server {/a\    listen 80;' /etc/nginx/nginx.conf
+
+# Restart nginx
+nginx -s reload
+
+echo "Nginx is now configured to listen on port 80 of all active IPv4 IPs."
+
